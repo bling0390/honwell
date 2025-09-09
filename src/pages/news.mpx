@@ -36,11 +36,11 @@
             </view>
             <view class="news-stats">
               <view class="stat-item">
-                <image class="stat-icon" src="/static/icons/view.png" />
+                <image class="stat-icon" src="https://via.placeholder.com/28x28/cccccc/666666?text=👁" />
                 <text class="stat-text">{{item.views}}</text>
               </view>
               <view class="stat-item">
-                <image class="stat-icon" src="/static/icons/like.png" />
+                <image class="stat-icon" src="https://via.placeholder.com/28x28/cccccc/666666?text=👍" />
                 <text class="stat-text">{{item.likes}}</text>
               </view>
             </view>
@@ -50,7 +50,7 @@
       </view>
 
       <view wx:else class="empty-state">
-        <image class="empty-icon" src="/static/icons/empty-news.png" />
+        <image class="empty-icon" src="https://via.placeholder.com/120x120/cccccc/666666?text=Empty" />
         <text class="empty-text">暂无相关资讯</text>
       </view>
     </view>
@@ -107,7 +107,7 @@ createPage({
         title: '公司成功获得ISO 9001质量管理体系认证',
         summary: '经过严格的审核流程，我们正式获得ISO 9001:2015质量管理体系认证，标志着公司在质量管理方面达到国际标准。',
         content: '',
-        image: '/static/news/iso-certification.jpg',
+        image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=ISO+Certification',
         categoryId: 1,
         categoryName: '公司新闻',
         publishDate: '2024-01-15',
@@ -121,7 +121,7 @@ createPage({
         title: '智能制造行业迎来新的发展机遇',
         summary: '随着数字化转型的深入推进，智能制造行业正迎来前所未有的发展机遇，预计未来三年市场规模将翻倍增长。',
         content: '',
-        image: '/static/news/smart-manufacturing.jpg',
+        image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=Smart+Manufacturing',
         categoryId: 2,
         categoryName: '行业动态',
         publishDate: '2024-01-12',
@@ -135,7 +135,7 @@ createPage({
         title: '产品管理平台 v3.0 重大更新发布',
         summary: '全新的产品管理平台带来了更强大的功能和更优秀的用户体验，包括AI智能分析、实时协作等核心特性。',
         content: '',
-        image: '/static/news/platform-update.jpg',
+        image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=Platform+Update',
         categoryId: 3,
         categoryName: '产品更新',
         publishDate: '2024-01-10',
@@ -149,7 +149,7 @@ createPage({
         title: '如何在微服务架构中实现高可用性',
         summary: '分享在微服务架构设计中实现高可用性的最佳实践，包括服务发现、负载均衡、熔断器等关键技术。',
         content: '',
-        image: '/static/news/microservices.jpg',
+        image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=Microservices',
         categoryId: 4,
         categoryName: '技术分享',
         publishDate: '2024-01-08',
@@ -163,7 +163,7 @@ createPage({
         title: '公司参加2024年科技创新展览会获得好评',
         summary: '在今年的科技创新展览会上，我们展示的最新技术解决方案获得了参观者和专家的一致好评。',
         content: '',
-        image: '/static/news/tech-exhibition.jpg',
+        image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=Tech+Exhibition',
         categoryId: 1,
         categoryName: '公司新闻',
         publishDate: '2024-01-05',
@@ -177,7 +177,7 @@ createPage({
         title: 'AI技术在工业物联网中的应用前景',
         summary: '探讨人工智能技术在工业物联网领域的应用现状和未来发展趋势，以及对传统制造业的变革意义。',
         content: '',
-        image: '/static/news/ai-iot.jpg',
+        image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=AI+IoT',
         categoryId: 2,
         categoryName: '行业动态',
         publishDate: '2024-01-03',
@@ -191,7 +191,7 @@ createPage({
         title: '云安全服务新功能上线公告',
         summary: '我们的云安全服务新增了威胁情报分析和自动化响应功能，为用户提供更全面的安全防护。',
         content: '',
-        image: '/static/news/cloud-security.jpg',
+        image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=Cloud+Security',
         categoryId: 3,
         categoryName: '产品更新',
         publishDate: '2024-01-01',
@@ -205,7 +205,7 @@ createPage({
         title: '容器化部署的性能优化实践',
         summary: '分享我们在容器化部署过程中的性能优化经验，包括资源配置、网络优化、存储优化等方面。',
         content: '',
-        image: '/static/news/container-optimization.jpg',
+        image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=Container+Optimization',
         categoryId: 4,
         categoryName: '技术分享',
         publishDate: '2023-12-28',

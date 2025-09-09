@@ -46,7 +46,7 @@
       </view>
 
       <view wx:if="{{filteredProducts.length === 0}}" class="empty-state">
-        <image class="empty-icon" src="/static/icons/empty.png" />
+        <image class="empty-icon" src="https://via.placeholder.com/120x120/cccccc/666666?text=Empty" />
         <text class="empty-text">暂无相关产品</text>
       </view>
     </view>
@@ -96,7 +96,7 @@ createPage({
         id: 1,
         name: '智能终端设备 Pro',
         description: '高性能智能终端，支持多种协议接入，适用于工业物联网场景',
-        image: '/static/products/terminal-pro.jpg',
+        image: 'https://via.placeholder.com/600x400/667eea/ffffff?text=Terminal+Pro',
         categoryId: 1,
         categoryName: '智能硬件',
         price: 2999,
@@ -113,7 +113,7 @@ createPage({
         id: 2,
         name: '数据管理平台',
         description: '一站式数据管理解决方案，支持海量数据存储、分析和可视化',
-        image: '/static/products/data-platform.jpg',
+        image: 'https://via.placeholder.com/600x400/667eea/ffffff?text=Data+Platform',
         categoryId: 2,
         categoryName: '软件解决方案',
         status: 'hot',
@@ -129,7 +129,7 @@ createPage({
         id: 3,
         name: '云原生应用平台',
         description: '基于容器技术的云原生应用开发和部署平台',
-        image: '/static/products/cloud-native.jpg',
+        image: 'https://via.placeholder.com/600x400/667eea/ffffff?text=Cloud+Native',
         categoryId: 3,
         categoryName: '云服务',
         status: 'recommended',
@@ -145,7 +145,7 @@ createPage({
         id: 4,
         name: '企业数字化转型咨询',
         description: '为企业提供全方位的数字化转型策略规划和实施指导',
-        image: '/static/products/consulting.jpg',
+        image: 'https://via.placeholder.com/600x400/667eea/ffffff?text=Consulting',
         categoryId: 4,
         categoryName: '咨询服务',
         status: 'recommended',
@@ -161,7 +161,7 @@ createPage({
         id: 5,
         name: '智能传感器',
         description: '高精度多参数传感器，适用于环境监测和工业控制',
-        image: '/static/products/sensor.jpg',
+        image: 'https://via.placeholder.com/600x400/667eea/ffffff?text=Sensor',
         categoryId: 1,
         categoryName: '智能硬件',
         price: 599,
@@ -178,7 +178,7 @@ createPage({
         id: 6,
         name: '安全运营中心',
         description: '7×24小时安全监控和威胁检测平台，保障企业网络安全',
-        image: '/static/products/security.jpg',
+        image: 'https://via.placeholder.com/600x400/667eea/ffffff?text=Security',
         categoryId: 2,
         categoryName: '软件解决方案',
         status: 'new',

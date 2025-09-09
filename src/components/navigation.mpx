@@ -1,7 +1,7 @@
 <template>
   <view class="navigation">
     <view class="nav-header">
-      <image class="logo" src="/static/images/logo.png" mode="aspectFit" />
+      <image class="logo" src="https://via.placeholder.com/200x200/007aff/ffffff?text=LOGO" mode="aspectFit" />
       <text class="company-name">Honwell</text>
     </view>
     
@@ -38,31 +38,31 @@ createComponent({
         id: 1,
         name: '首页',
         path: '/pages/index',
-        icon: '/static/icons/home.png'
+        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=🏠'
       },
       {
         id: 2,
         name: '关于我们',
         path: '/pages/about',
-        icon: '/static/icons/about.png'
+        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=ℹ'
       },
       {
         id: 3,
         name: '最新产品',
         path: '/pages/products',
-        icon: '/static/icons/products.png'
+        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=📦'
       },
       {
         id: 4,
         name: '企业资讯',
         path: '/pages/news',
-        icon: '/static/icons/news.png'
+        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=📰'
       },
       {
         id: 5,
         name: '岗位招聘',
         path: '/pages/careers',
-        icon: '/static/icons/careers.png'
+        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=👥'
       }
     ] as MenuItem[]
   },

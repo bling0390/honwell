@@ -9,7 +9,7 @@
           在这里，你将获得成长的机会，参与创新的项目，与行业精英共同打造未来。
         </text>
       </view>
-      <image class="hero-image" src="/static/images/careers-hero.jpg" mode="aspectFill" />
+      <image class="hero-image" src="https://via.placeholder.com/750x400/667eea/ffffff?text=Careers+Hero" mode="aspectFill" />
     </view>
 
     <view class="why-join-section">
@@ -102,7 +102,7 @@
       </view>
 
       <view wx:else class="empty-jobs">
-        <image class="empty-icon" src="/static/icons/empty-jobs.png" />
+        <image class="empty-icon" src="https://via.placeholder.com/120x120/cccccc/666666?text=Empty" />
         <text class="empty-text">暂无符合条件的职位</text>
         <text class="empty-hint">请尝试调整筛选条件或稍后再试</text>
       </view>
@@ -111,17 +111,17 @@
     <view class="contact-hr-section">
       <text class="section-title">联系HR</text>
       <view class="contact-card">
-        <image class="hr-avatar" src="/static/avatars/hr.jpg" />
+        <image class="hr-avatar" src="https://via.placeholder.com/200x200/007aff/ffffff?text=HR" />
         <view class="hr-info">
           <text class="hr-name">李小姐 - 人事经理</text>
           <text class="hr-description">如有任何职业发展相关问题，欢迎随时联系</text>
           <view class="contact-methods">
             <button class="contact-btn phone-btn" bindtap="callHR">
-              <image class="btn-icon" src="/static/icons/phone.png" />
+              <image class="btn-icon" src="https://via.placeholder.com/32x32/ffffff/007aff?text=📞" />
               <text>电话咨询</text>
             </button>
             <button class="contact-btn email-btn" bindtap="emailHR">
-              <image class="btn-icon" src="/static/icons/email.png" />
+              <image class="btn-icon" src="https://via.placeholder.com/32x32/007aff/ffffff?text=✉" />
               <text>邮件联系</text>
             </button>
           </view>
@@ -177,37 +177,37 @@ createPage({
         id: 1,
         title: '有竞争力的薪酬',
         description: '行业领先的薪资水平，年度调薪机制',
-        icon: '/static/icons/salary.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=💰'
       },
       {
         id: 2,
         title: '弹性工作制',
         description: '灵活的工作时间，支持远程办公',
-        icon: '/static/icons/flexible.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=⏰'
       },
       {
         id: 3,
         title: '学习成长',
         description: '完善的培训体系，技能提升支持',
-        icon: '/static/icons/growth.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=📚'
       },
       {
         id: 4,
         title: '团队氛围',
         description: '开放包容的企业文化，团建活动丰富',
-        icon: '/static/icons/team.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=👥'
       },
       {
         id: 5,
         title: '五险一金',
         description: '完整的社会保险，住房公积金',
-        icon: '/static/icons/insurance.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🛡'
       },
       {
         id: 6,
         title: '健康福利',
         description: '年度体检，健身房，员工食堂',
-        icon: '/static/icons/health.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=💊'
       }
     ] as Benefit[],
 

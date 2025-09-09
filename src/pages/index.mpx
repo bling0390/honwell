@@ -11,7 +11,7 @@
             探索产品
           </button>
         </view>
-        <image class="hero-image" src="/static/images/hero-bg.jpg" mode="aspectFill" />
+        <image class="hero-image" src="https://via.placeholder.com/750x400/667eea/ffffff?text=Hero+Background" mode="aspectFill" />
       </view>
 
       <view class="features-section">
@@ -72,25 +72,25 @@ createPage({
         id: 1,
         title: '技术创新',
         description: '持续的技术创新，引领行业发展',
-        icon: '/static/icons/innovation.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🚀'
       },
       {
         id: 2,
         title: '品质保证',
         description: '严格的质量控制，确保产品品质',
-        icon: '/static/icons/quality.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=⚡'
       },
       {
         id: 3,
         title: '专业服务',
         description: '专业的技术团队，贴心的客户服务',
-        icon: '/static/icons/service.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🛠'
       },
       {
         id: 4,
         title: '快速响应',
         description: '7x24小时技术支持，快速响应客户需求',
-        icon: '/static/icons/support.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🎯'
       }
     ] as Feature[],
 
@@ -100,28 +100,28 @@ createPage({
         title: '关于我们',
         description: '了解公司发展历程',
         path: '/pages/about',
-        icon: '/static/icons/about.png'
+        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=ℹ'
       },
       {
         id: 2,
         title: '最新产品',
         description: '查看最新产品信息',
         path: '/pages/products',
-        icon: '/static/icons/products.png'
+        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=📦'
       },
       {
         id: 3,
         title: '企业资讯',
         description: '获取最新行业动态',
         path: '/pages/news',
-        icon: '/static/icons/news.png'
+        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=📰'
       },
       {
         id: 4,
         title: '岗位招聘',
         description: '加入我们的团队',
         path: '/pages/careers',
-        icon: '/static/icons/careers.png'
+        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=👥'
       }
     ] as QuickNav[]
   },

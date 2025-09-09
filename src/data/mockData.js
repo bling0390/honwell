@@ -15,7 +15,7 @@ export const products = [
     price: 2999,
     status: 'new',
     description: '高性能智能终端，支持多种协议接入，适用于工业物联网场景',
-    image: '/static/products/terminal-pro.jpg',
+    image: 'https://via.placeholder.com/600x400/667eea/ffffff?text=Terminal+Pro',
     features: ['支持5G网络', '工业级防护', '超长续航'],
     specs: {
       '处理器': 'ARM Cortex-A72',
@@ -30,7 +30,7 @@ export const products = [
     category: '软件解决方案',
     status: 'hot',
     description: '一站式数据管理解决方案，支持海量数据存储、分析和可视化',
-    image: '/static/products/data-platform.jpg',
+    image: 'https://via.placeholder.com/600x400/667eea/ffffff?text=Data+Platform',
     features: ['实时数据处理', '智能分析', '可视化报表'],
     specs: {
       '数据容量': '≥100TB',
@@ -51,7 +51,7 @@ export const news = [
     views: 1203,
     likes: 45,
     isTop: true,
-    image: '/static/news/iso-certification.jpg'
+    image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=ISO+Certification'
   },
   {
     id: 2,
@@ -62,7 +62,7 @@ export const news = [
     views: 892,
     likes: 32,
     isTop: false,
-    image: '/static/news/smart-manufacturing.jpg'
+    image: 'https://via.placeholder.com/600x300/667eea/ffffff?text=Smart+Manufacturing'
   }
 ]
 
@@ -109,28 +109,28 @@ export const teamMembers = [
     name: '张伟',
     position: '创始人 & CEO',
     bio: '拥有15年行业经验，致力于推动公司战略发展',
-    avatar: '/static/avatars/ceo.jpg'
+    avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CEO'
   },
   {
     id: 2,
     name: '李明',
     position: '技术总监',
     bio: '资深技术专家，专注于技术架构和团队建设',
-    avatar: '/static/avatars/cto.jpg'
+    avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CTO'
   },
   {
     id: 3,
     name: '王芳',
     position: '市场总监',
     bio: '市场营销专家，负责品牌推广和市场拓展',
-    avatar: '/static/avatars/cmo.jpg'
+    avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CMO'
   },
   {
     id: 4,
     name: '刘强',
     position: '产品总监',
     bio: '产品设计专家，专注于用户体验和产品创新',
-    avatar: '/static/avatars/cpo.jpg'
+    avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CPO'
   }
 ]
 

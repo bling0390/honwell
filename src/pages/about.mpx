@@ -3,7 +3,7 @@
     <view class="hero-section">
       <image 
         class="hero-image" 
-        src="/static/images/about-hero.jpg" 
+        src="https://via.placeholder.com/750x400/667eea/ffffff?text=About+Us+Hero" 
         mode="aspectFill"
       />
       <view class="hero-overlay">
@@ -66,15 +66,15 @@
         <text class="section-title">联系我们</text>
         <view class="contact-info">
           <view class="contact-item">
-            <image class="contact-icon" src="/static/icons/location.png" />
+            <image class="contact-icon" src="https://via.placeholder.com/64x64/007aff/ffffff?text=📍" />
             <text class="contact-text">{{contactInfo.address}}</text>
           </view>
           <view class="contact-item">
-            <image class="contact-icon" src="/static/icons/phone.png" />
+            <image class="contact-icon" src="https://via.placeholder.com/64x64/007aff/ffffff?text=📞" />
             <text class="contact-text">{{contactInfo.phone}}</text>
           </view>
           <view class="contact-item">
-            <image class="contact-icon" src="/static/icons/email.png" />
+            <image class="contact-icon" src="https://via.placeholder.com/64x64/007aff/ffffff?text=✉" />
             <text class="contact-text">{{contactInfo.email}}</text>
           </view>
         </view>
@@ -120,25 +120,25 @@ createPage({
         id: 1,
         title: '创新',
         description: '持续创新，追求卓越',
-        icon: '/static/icons/innovation.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🚀'
       },
       {
         id: 2,
         title: '诚信',
         description: '诚实守信，言行一致',
-        icon: '/static/icons/integrity.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🤝'
       },
       {
         id: 3,
         title: '专业',
         description: '专业技能，精益求精',
-        icon: '/static/icons/professional.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=💼'
       },
       {
         id: 4,
         title: '协作',
         description: '团队协作，共同成长',
-        icon: '/static/icons/teamwork.png'
+        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=👥'
       }
     ] as ValueItem[],
 
@@ -148,28 +148,28 @@ createPage({
         name: '张伟',
         position: '创始人 & CEO',
         bio: '拥有15年行业经验，致力于推动公司战略发展',
-        avatar: '/static/avatars/ceo.jpg'
+        avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CEO'
       },
       {
         id: 2,
         name: '李明',
         position: '技术总监',
         bio: '资深技术专家，专注于技术架构和团队建设',
-        avatar: '/static/avatars/cto.jpg'
+        avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CTO'
       },
       {
         id: 3,
         name: '王芳',
         position: '市场总监',
         bio: '市场营销专家，负责品牌推广和市场拓展',
-        avatar: '/static/avatars/cmo.jpg'
+        avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CMO'
       },
       {
         id: 4,
         name: '刘强',
         position: '产品总监',
         bio: '产品设计专家，专注于用户体验和产品创新',
-        avatar: '/static/avatars/cpo.jpg'
+        avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CPO'
       }
     ] as TeamMember[],
 
