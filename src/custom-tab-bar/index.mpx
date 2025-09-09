@@ -1,0 +1,110 @@
+<template>
+  <view class="tab-bar">
+    <view 
+      wx:for="{{list}}" 
+      wx:key="index"
+      class="tab-bar-item"
+      bindtap="switchTab"
+      data-path="{{item.pagePath}}"
+      data-index="{{index}}"
+    >
+      <text class="tab-icon {{selected === index ? 'active' : ''}}">{{item.icon}}</text>
+      <text class="tab-text {{selected === index ? 'active' : ''}}">{{item.text}}</text>
+    </view>
+  </view>
+</template>
+
+<script lang="ts">
+import { createComponent } from '@mpxjs/core'
+
+interface TabItem {
+  pagePath: string
+  text: string
+  icon: string
+}
+
+createComponent({
+  data: {
+    selected: 0,
+    color: '#666666',
+    selectedColor: '#007aff',
+    list: [
+      {
+        pagePath: '/pages/about',
+        text: '关于我们',
+        icon: '🏢'
+      },
+      {
+        pagePath: '/pages/products',
+        text: '产品',
+        icon: '📦'
+      },
+      {
+        pagePath: '/pages/news',
+        text: '资讯',
+        icon: '📰'
+      },
+      {
+        pagePath: '/pages/careers',
+        text: '招聘',
+        icon: '👥'
+      }
+    ] as TabItem[]
+  },
+
+  methods: {
+    switchTab(event: any) {
+      const data = event.currentTarget.dataset
+      const url = data.path
+      wx.switchTab({
+        url
+      })
+    }
+  }
+})
+</script>
+
+<style lang="stylus">
+.tab-bar
+  position fixed
+  bottom 0
+  left 0
+  right 0
+  height 100rpx
+  background white
+  display flex
+  padding-bottom env(safe-area-inset-bottom)
+  box-shadow 0 -2rpx 10rpx rgba(0, 0, 0, 0.05)
+  border-top 1rpx solid #e5e5e5
+
+.tab-bar-item
+  flex 1
+  display flex
+  flex-direction column
+  align-items center
+  justify-content center
+  padding-top 10rpx
+
+.tab-icon
+  font-size 44rpx
+  line-height 1
+  margin-bottom 4rpx
+  transition all 0.3s ease
+
+.tab-icon.active
+  transform scale(1.1)
+
+.tab-text
+  font-size 20rpx
+  color #666666
+  transition color 0.3s ease
+
+.tab-text.active
+  color #007aff
+</style>
+
+<script type="application/json">
+{
+  "component": true
+}
+</script>

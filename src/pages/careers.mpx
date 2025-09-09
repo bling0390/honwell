@@ -386,6 +386,14 @@ createPage({
     this.filterJobs()
   },
 
+  onShow() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 3
+      })
+    }
+  },
+
   filterByDepartment(event: any) {
     const departmentId = event.target.dataset.id
     this.setData({

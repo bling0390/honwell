@@ -132,7 +132,7 @@ createPage({
   },
 
   exploreProducts() {
-    wx.navigateTo({
+    wx.switchTab({
       url: '/pages/products'
     })
   },

@@ -202,6 +202,14 @@ createPage({
     this.filterProducts({ target: { dataset: { category: 0 } } } as any)
   },
 
+  onShow() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 1
+      })
+    }
+  },
+
   filterProducts(event: any) {
     const categoryId = event.target.dataset.category
     this.setData({
