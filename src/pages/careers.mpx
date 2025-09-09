@@ -577,6 +577,7 @@ iconText: '💊'
   display flex
   align-items center
   margin-bottom 20rpx
+  overflow hidden
 
 .filter-label
   font-size 28rpx
@@ -585,11 +586,15 @@ iconText: '💊'
 
 .filter-scroll
   flex 1
+  overflow-x auto
+  overflow-y hidden
 
 .filter-tags
   display flex
   gap 20rpx
   white-space nowrap
+  padding 0 30rpx 0 0
+  min-width max-content
 
 .filter-tag
   padding 12rpx 24rpx
@@ -598,6 +603,8 @@ iconText: '💊'
   border-radius 20rpx
   font-size 26rpx
   transition all 0.3s ease
+  flex-shrink 0
+  white-space nowrap
 
 .filter-tag.active
   background #007aff

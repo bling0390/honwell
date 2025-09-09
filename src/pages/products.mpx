@@ -268,12 +268,15 @@ iconText: '🔒',
 
 .filter-scroll
   width 100%
+  overflow-x auto
+  overflow-y hidden
 
 .filter-list
   display flex
   gap 20rpx
   padding 0 30rpx
   white-space nowrap
+  min-width max-content
 
 .filter-item
   padding 16rpx 32rpx
@@ -282,6 +285,8 @@ iconText: '🔒',
   font-size 26rpx
   color #666
   transition all 0.3s ease
+  flex-shrink 0
+  white-space nowrap
 
 .filter-item.active
   background #007aff
