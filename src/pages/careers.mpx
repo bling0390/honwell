@@ -9,14 +9,16 @@
           在这里，你将获得成长的机会，参与创新的项目，与行业精英共同打造未来。
         </text>
       </view>
-      <image class="hero-image" src="https://via.placeholder.com/750x400/667eea/ffffff?text=Careers+Hero" mode="aspectFill" />
+      <view class="hero-background">
+        <text class="hero-icon">👥</text>
+      </view>
     </view>
 
     <view class="why-join-section">
       <text class="section-title">为什么选择我们？</text>
       <view class="benefits-grid">
         <view wx:for="{{benefits}}" wx:key="id" class="benefit-item">
-          <image class="benefit-icon" src="{{item.icon}}" />
+          <text class="benefit-icon">{{item.iconText}}</text>
           <text class="benefit-title">{{item.title}}</text>
           <text class="benefit-description">{{item.description}}</text>
         </view>
@@ -102,7 +104,7 @@
       </view>
 
       <view wx:else class="empty-jobs">
-        <image class="empty-icon" src="https://via.placeholder.com/120x120/cccccc/666666?text=Empty" />
+        <text class="empty-icon">📄</text>
         <text class="empty-text">暂无符合条件的职位</text>
         <text class="empty-hint">请尝试调整筛选条件或稍后再试</text>
       </view>
@@ -111,17 +113,17 @@
     <view class="contact-hr-section">
       <text class="section-title">联系HR</text>
       <view class="contact-card">
-        <image class="hr-avatar" src="https://via.placeholder.com/200x200/007aff/ffffff?text=HR" />
+        <text class="hr-avatar">👩‍💼</text>
         <view class="hr-info">
           <text class="hr-name">李小姐 - 人事经理</text>
           <text class="hr-description">如有任何职业发展相关问题，欢迎随时联系</text>
           <view class="contact-methods">
             <button class="contact-btn phone-btn" bindtap="callHR">
-              <image class="btn-icon" src="https://via.placeholder.com/32x32/ffffff/007aff?text=📞" />
+              <text class="btn-icon">📞</text>
               <text>电话咨询</text>
             </button>
             <button class="contact-btn email-btn" bindtap="emailHR">
-              <image class="btn-icon" src="https://via.placeholder.com/32x32/007aff/ffffff?text=✉" />
+              <text class="btn-icon">✉️</text>
               <text>邮件联系</text>
             </button>
           </view>
@@ -138,7 +140,7 @@ interface Benefit {
   id: number
   title: string
   description: string
-  icon: string
+  iconText: string
 }
 
 interface Department {
@@ -177,37 +179,37 @@ createPage({
         id: 1,
         title: '有竞争力的薪酬',
         description: '行业领先的薪资水平 年度调薪机制',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=💰'
+iconText: '💰'
       },
       {
         id: 2,
         title: '弹性工作制',
         description: '灵活的工作时间 支持远程办公',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=⏰'
+iconText: '⏰'
       },
       {
         id: 3,
         title: '学习成长',
         description: '完善的培训体系 技能提升支持',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=📚'
+iconText: '📚'
       },
       {
         id: 4,
         title: '团队氛围',
         description: '开放包容的企业文化 团建活动丰富',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=👥'
+iconText: '👥'
       },
       {
         id: 5,
         title: '五险一金',
         description: '完整的社会保险 住房公积金',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🛡'
+iconText: '🛡️'
       },
       {
         id: 6,
         title: '健康福利',
         description: '年度体检 健身房 员工食堂',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=💊'
+iconText: '💊'
       }
     ] as Benefit[],
 
@@ -490,13 +492,18 @@ createPage({
   opacity 0.8
   display block
 
-.hero-image
+.hero-background
   position absolute
-  right 0
   top 0
-  width 300rpx
-  height 100%
-  object-fit cover
+  right 0
+  bottom 0
+  left 0
+  display flex
+  justify-content center
+  align-items center
+
+.hero-icon
+  font-size 200rpx
   opacity 0.3
 
 .why-join-section
@@ -527,9 +534,9 @@ createPage({
   box-sizing border-box
 
 .benefit-icon
-  width 60rpx
-  height 60rpx
+  font-size 60rpx
   margin-bottom 20rpx
+  display block
 
 .benefit-title
   font-size 28rpx
@@ -694,10 +701,10 @@ createPage({
   border-radius 16rpx
 
 .empty-icon
-  width 120rpx
-  height 120rpx
+  font-size 120rpx
   margin-bottom 30rpx
   opacity 0.3
+  display block
 
 .empty-text
   font-size 28rpx
@@ -722,9 +729,9 @@ createPage({
   border-radius 16rpx
 
 .hr-avatar
-  width 120rpx
-  height 120rpx
-  border-radius 50%
+  font-size 100rpx
+  display block
+  text-align center
 
 .hr-info
   flex 1
@@ -771,8 +778,8 @@ createPage({
   border none
 
 .btn-icon
-  width 32rpx
-  height 32rpx
+  font-size 32rpx
+  display block
 </style>
 
 <script type="application/json">

@@ -1,7 +1,7 @@
 <template>
   <view class="navigation">
     <view class="nav-header">
-      <image class="logo" src="https://via.placeholder.com/200x200/007aff/ffffff?text=LOGO" mode="aspectFit" />
+      <text class="logo">🏢</text>
       <text class="company-name">Honwell</text>
     </view>
     
@@ -13,7 +13,7 @@
         bindtap="navigateTo"
         data-path="{{item.path}}"
       >
-        <image class="nav-icon" src="{{item.icon}}" />
+        <text class="nav-icon">{{item.iconText}}</text>
         <text class="nav-text">{{item.name}}</text>
       </view>
     </view>
@@ -27,7 +27,7 @@ interface MenuItem {
   id: number
   name: string
   path: string
-  icon: string
+  iconText: string
 }
 
 createComponent({
@@ -38,31 +38,31 @@ createComponent({
         id: 1,
         name: '首页',
         path: '/pages/index',
-        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=🏠'
+iconText: '🏠'
       },
       {
         id: 2,
         name: '关于我们',
         path: '/pages/about',
-        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=ℹ'
+iconText: 'ℹ️'
       },
       {
         id: 3,
         name: '最新产品',
         path: '/pages/products',
-        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=📦'
+iconText: '📦'
       },
       {
         id: 4,
         name: '企业资讯',
         path: '/pages/news',
-        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=📰'
+iconText: '📰'
       },
       {
         id: 5,
         name: '岗位招聘',
         path: '/pages/careers',
-        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=👥'
+iconText: '👥'
       }
     ] as MenuItem[]
   },
@@ -114,9 +114,9 @@ createComponent({
   border-bottom 1px solid #f0f0f0
 
 .logo
-  width 60rpx
-  height 60rpx
+  font-size 60rpx
   margin-right 20rpx
+  display block
 
 .company-name
   font-size 36rpx
@@ -154,9 +154,10 @@ createComponent({
   border-radius 2rpx
 
 .nav-icon
-  width 40rpx
-  height 40rpx
+  font-size 40rpx
   margin-bottom 8rpx
+  display block
+  text-align center
 
 .nav-text
   font-size 22rpx

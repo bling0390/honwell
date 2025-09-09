@@ -10,14 +10,16 @@
             探索产品
           </button>
         </view>
-        <image class="hero-image" src="https://via.placeholder.com/750x400/667eea/ffffff?text=Hero+Background" mode="aspectFill" />
+        <view class="hero-background">
+          <text class="hero-icon">🚀</text>
+        </view>
       </view>
 
       <view class="features-section">
         <text class="section-title">核心优势</text>
         <view class="features-grid">
           <view wx:for="{{features}}" wx:key="id" class="feature-item">
-            <image class="feature-icon" src="{{item.icon}}" />
+            <text class="feature-icon">{{item.iconText}}</text>
             <text class="feature-title">{{item.title}}</text>
             <text class="feature-description">{{item.description}}</text>
           </view>
@@ -34,7 +36,7 @@
             bindtap="navigateToPage"
             data-path="{{item.path}}"
           >
-            <image class="quick-nav-icon" src="{{item.icon}}" />
+            <text class="quick-nav-icon">{{item.iconText}}</text>
             <text class="quick-nav-title">{{item.title}}</text>
             <text class="quick-nav-description">{{item.description}}</text>
           </view>
@@ -53,7 +55,7 @@ interface Feature {
   id: number
   title: string
   description: string
-  icon: string
+  iconText: string
 }
 
 interface QuickNav {
@@ -61,7 +63,7 @@ interface QuickNav {
   title: string
   description: string
   path: string
-  icon: string
+  iconText: string
 }
 
 createPage({
@@ -71,25 +73,25 @@ createPage({
         id: 1,
         title: '技术创新',
         description: '持续的技术创新，引领行业发展',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🚀'
+iconText: '🚀'
       },
       {
         id: 2,
         title: '品质保证',
         description: '严格的质量控制，确保产品品质',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=⚡'
+iconText: '⚡'
       },
       {
         id: 3,
         title: '专业服务',
         description: '专业的技术团队，贴心的客户服务',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🛠'
+iconText: '🛠️'
       },
       {
         id: 4,
         title: '快速响应',
         description: '7x24小时技术支持，快速响应客户需求',
-        icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🎯'
+iconText: '🎯'
       }
     ] as Feature[],
 
@@ -99,28 +101,28 @@ createPage({
         title: '关于我们',
         description: '了解公司发展历程',
         path: '/pages/about',
-        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=ℹ'
+iconText: 'ℹ️'
       },
       {
         id: 2,
         title: '最新产品',
         description: '查看最新产品信息',
         path: '/pages/products',
-        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=📦'
+iconText: '📦'
       },
       {
         id: 3,
         title: '企业资讯',
         description: '获取最新行业动态',
         path: '/pages/news',
-        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=📰'
+iconText: '📰'
       },
       {
         id: 4,
         title: '岗位招聘',
         description: '加入我们的团队',
         path: '/pages/careers',
-        icon: 'https://via.placeholder.com/64x64/007aff/ffffff?text=👥'
+iconText: '👥'
       }
     ] as QuickNav[]
   },
@@ -200,13 +202,18 @@ createPage({
 .cta-button::after
   border none
 
-.hero-image
+.hero-background
   position absolute
-  right -50rpx
   top 0
-  width 400rpx
-  height 100%
-  object-fit cover
+  right 0
+  bottom 0
+  left 0
+  display flex
+  justify-content center
+  align-items center
+
+.hero-icon
+  font-size 200rpx
   opacity 0.3
 
 .features-section
@@ -237,9 +244,10 @@ createPage({
   box-shadow 0 4rpx 20rpx rgba(0, 0, 0, 0.05)
 
 .feature-icon
-  width 80rpx
-  height 80rpx
+  font-size 80rpx
   margin-bottom 24rpx
+  display block
+  text-align center
 
 .feature-title
   font-size 28rpx
@@ -274,9 +282,10 @@ createPage({
   transform scale(0.98)
 
 .quick-nav-icon
-  width 60rpx
-  height 60rpx
+  font-size 60rpx
   margin-bottom 20rpx
+  display block
+  text-align center
 
 .quick-nav-title
   font-size 30rpx
