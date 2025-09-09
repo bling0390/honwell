@@ -1,0 +1,303 @@
+<template>
+  <view class="index-page">
+    <navigation></navigation>
+    <view class="main-content">
+      <view class="hero-section">
+        <view class="hero-content">
+          <text class="hero-title">欢迎来到 Honwell</text>
+          <text class="hero-subtitle">创新技术，品质服务</text>
+          <text class="hero-description">我们致力于为客户提供最优质的产品和服务</text>
+          <button class="cta-button" bindtap="exploreProducts">
+            探索产品
+          </button>
+        </view>
+        <image class="hero-image" src="/static/images/hero-bg.jpg" mode="aspectFill" />
+      </view>
+
+      <view class="features-section">
+        <text class="section-title">核心优势</text>
+        <view class="features-grid">
+          <view wx:for="{{features}}" wx:key="id" class="feature-item">
+            <image class="feature-icon" src="{{item.icon}}" />
+            <text class="feature-title">{{item.title}}</text>
+            <text class="feature-description">{{item.description}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="quick-nav-section">
+        <text class="section-title">快速导航</text>
+        <view class="quick-nav-grid">
+          <view 
+            wx:for="{{quickNavs}}" 
+            wx:key="id"
+            class="quick-nav-item"
+            bindtap="navigateToPage"
+            data-path="{{item.path}}"
+          >
+            <image class="quick-nav-icon" src="{{item.icon}}" />
+            <text class="quick-nav-title">{{item.title}}</text>
+            <text class="quick-nav-description">{{item.description}}</text>
+          </view>
+        </view>
+      </view>
+
+      <list></list>
+    </view>
+  </view>
+</template>
+
+<script lang="ts">
+import { createPage } from '@mpxjs/core'
+
+interface Feature {
+  id: number
+  title: string
+  description: string
+  icon: string
+}
+
+interface QuickNav {
+  id: number
+  title: string
+  description: string
+  path: string
+  icon: string
+}
+
+createPage({
+  data: {
+    features: [
+      {
+        id: 1,
+        title: '技术创新',
+        description: '持续的技术创新，引领行业发展',
+        icon: '/static/icons/innovation.png'
+      },
+      {
+        id: 2,
+        title: '品质保证',
+        description: '严格的质量控制，确保产品品质',
+        icon: '/static/icons/quality.png'
+      },
+      {
+        id: 3,
+        title: '专业服务',
+        description: '专业的技术团队，贴心的客户服务',
+        icon: '/static/icons/service.png'
+      },
+      {
+        id: 4,
+        title: '快速响应',
+        description: '7x24小时技术支持，快速响应客户需求',
+        icon: '/static/icons/support.png'
+      }
+    ] as Feature[],
+
+    quickNavs: [
+      {
+        id: 1,
+        title: '关于我们',
+        description: '了解公司发展历程',
+        path: '/pages/about',
+        icon: '/static/icons/about.png'
+      },
+      {
+        id: 2,
+        title: '最新产品',
+        description: '查看最新产品信息',
+        path: '/pages/products',
+        icon: '/static/icons/products.png'
+      },
+      {
+        id: 3,
+        title: '企业资讯',
+        description: '获取最新行业动态',
+        path: '/pages/news',
+        icon: '/static/icons/news.png'
+      },
+      {
+        id: 4,
+        title: '岗位招聘',
+        description: '加入我们的团队',
+        path: '/pages/careers',
+        icon: '/static/icons/careers.png'
+      }
+    ] as QuickNav[]
+  },
+
+  onLoad() {
+    wx.setNavigationBarTitle({
+      title: 'Honwell'
+    })
+  },
+
+  exploreProducts() {
+    wx.navigateTo({
+      url: '/pages/products'
+    })
+  },
+
+  navigateToPage(event: any) {
+    const path = event.target.dataset.path
+    wx.navigateTo({
+      url: path
+    })
+  }
+})
+</script>
+
+<style lang="stylus">
+.index-page
+  background-color #f5f5f5
+  min-height 100vh
+
+.main-content
+  padding-bottom 30rpx
+
+.hero-section
+  position relative
+  height 500rpx
+  background linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  color white
+  display flex
+  align-items center
+  overflow hidden
+
+.hero-content
+  flex 1
+  padding 40rpx
+  z-index 2
+
+.hero-title
+  font-size 48rpx
+  font-weight bold
+  margin-bottom 16rpx
+  display block
+
+.hero-subtitle
+  font-size 32rpx
+  margin-bottom 24rpx
+  display block
+  opacity 0.9
+
+.hero-description
+  font-size 26rpx
+  line-height 1.6
+  margin-bottom 40rpx
+  display block
+  opacity 0.8
+
+.cta-button
+  background rgba(255, 255, 255, 0.2)
+  color white
+  border none
+  padding 24rpx 60rpx
+  border-radius 50rpx
+  font-size 30rpx
+  font-weight bold
+  backdrop-filter blur(10rpx)
+
+.cta-button::after
+  border none
+
+.hero-image
+  position absolute
+  right -50rpx
+  top 0
+  width 400rpx
+  height 100%
+  object-fit cover
+  opacity 0.3
+
+.features-section
+  padding 50rpx 30rpx
+  background white
+
+.section-title
+  font-size 36rpx
+  font-weight bold
+  color #333
+  margin-bottom 40rpx
+  text-align center
+  display block
+
+.features-grid
+  display flex
+  flex-wrap wrap
+  gap 30rpx
+
+.feature-item
+  flex 0 0 calc(50% - 15rpx)
+  display flex
+  flex-direction column
+  align-items center
+  padding 40rpx 30rpx
+  background #f8f9fa
+  border-radius 16rpx
+  box-shadow 0 4rpx 20rpx rgba(0, 0, 0, 0.05)
+
+.feature-icon
+  width 80rpx
+  height 80rpx
+  margin-bottom 24rpx
+
+.feature-title
+  font-size 28rpx
+  font-weight bold
+  color #333
+  margin-bottom 16rpx
+  text-align center
+
+.feature-description
+  font-size 24rpx
+  color #666
+  text-align center
+  line-height 1.5
+
+.quick-nav-section
+  padding 50rpx 30rpx 0
+
+.quick-nav-grid
+  display flex
+  flex-wrap wrap
+  gap 20rpx
+
+.quick-nav-item
+  flex 0 0 calc(50% - 10rpx)
+  background white
+  padding 30rpx
+  border-radius 16rpx
+  box-shadow 0 4rpx 20rpx rgba(0, 0, 0, 0.06)
+  transition transform 0.3s ease
+
+.quick-nav-item:active
+  transform scale(0.98)
+
+.quick-nav-icon
+  width 60rpx
+  height 60rpx
+  margin-bottom 20rpx
+
+.quick-nav-title
+  font-size 30rpx
+  font-weight bold
+  color #333
+  margin-bottom 12rpx
+  display block
+
+.quick-nav-description
+  font-size 24rpx
+  color #666
+  line-height 1.4
+  display block
+</style>
+
+<script type="application/json">
+  {
+    "usingComponents": {
+      "list": "../components/list",
+      "navigation": "../components/navigation"
+    }
+  }
+</script>

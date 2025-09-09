@@ -1,0 +1,405 @@
+<template>
+  <view class="products-page">
+    <view class="header-section">
+      <text class="page-title">最新产品</text>
+      <text class="page-subtitle">探索我们的创新解决方案</text>
+    </view>
+
+    <view class="filter-section">
+      <scroll-view class="filter-scroll" scroll-x>
+        <view class="filter-list">
+          <view 
+            wx:for="{{categories}}" 
+            wx:key="id"
+            class="filter-item {{currentCategory === item.id ? 'active' : ''}}"
+            bindtap="filterProducts"
+            data-category="{{item.id}}"
+          >
+            {{item.name}}
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="products-section">
+      <view class="products-grid">
+        <view 
+          wx:for="{{filteredProducts}}" 
+          wx:key="id"
+          class="product-card"
+          bindtap="viewProduct"
+          data-id="{{item.id}}"
+        >
+          <image class="product-image" src="{{item.image}}" mode="aspectFill" />
+          <view class="product-info">
+            <text class="product-name">{{item.name}}</text>
+            <text class="product-category">{{item.categoryName}}</text>
+            <text class="product-description">{{item.description}}</text>
+            <view class="product-footer">
+              <text class="product-price" wx:if="{{item.price}}">¥{{item.price}}</text>
+              <text class="product-status {{item.status === 'new' ? 'status-new' : item.status === 'hot' ? 'status-hot' : ''}}">
+                {{item.status === 'new' ? '新品' : item.status === 'hot' ? '热门' : '推荐'}}
+              </text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{filteredProducts.length === 0}}" class="empty-state">
+        <image class="empty-icon" src="/static/icons/empty.png" />
+        <text class="empty-text">暂无相关产品</text>
+      </view>
+    </view>
+
+    <view class="cta-section">
+      <text class="cta-title">需要定制解决方案？</text>
+      <text class="cta-subtitle">联系我们的专业团队，为您提供个性化服务</text>
+      <button class="cta-button" bindtap="contactUs">立即咨询</button>
+    </view>
+  </view>
+</template>
+
+<script lang="ts">
+import { createPage } from '@mpxjs/core'
+
+interface Category {
+  id: number
+  name: string
+}
+
+interface Product {
+  id: number
+  name: string
+  description: string
+  image: string
+  categoryId: number
+  categoryName: string
+  price?: number
+  status: 'new' | 'hot' | 'recommended'
+  features: string[]
+  specs: { [key: string]: string }
+}
+
+createPage({
+  data: {
+    currentCategory: 0,
+    categories: [
+      { id: 0, name: '全部' },
+      { id: 1, name: '智能硬件' },
+      { id: 2, name: '软件解决方案' },
+      { id: 3, name: '云服务' },
+      { id: 4, name: '咨询服务' }
+    ] as Category[],
+
+    products: [
+      {
+        id: 1,
+        name: '智能终端设备 Pro',
+        description: '高性能智能终端，支持多种协议接入，适用于工业物联网场景',
+        image: '/static/products/terminal-pro.jpg',
+        categoryId: 1,
+        categoryName: '智能硬件',
+        price: 2999,
+        status: 'new',
+        features: ['支持5G网络', '工业级防护', '超长续航'],
+        specs: {
+          '处理器': 'ARM Cortex-A72',
+          '内存': '4GB LPDDR4',
+          '存储': '64GB eMMC',
+          '操作温度': '-20°C ~ +70°C'
+        }
+      },
+      {
+        id: 2,
+        name: '数据管理平台',
+        description: '一站式数据管理解决方案，支持海量数据存储、分析和可视化',
+        image: '/static/products/data-platform.jpg',
+        categoryId: 2,
+        categoryName: '软件解决方案',
+        status: 'hot',
+        features: ['实时数据处理', '智能分析', '可视化报表'],
+        specs: {
+          '数据容量': '≥100TB',
+          '并发用户': '≥10000',
+          '响应时间': '≤100ms',
+          '可用性': '99.9%'
+        }
+      },
+      {
+        id: 3,
+        name: '云原生应用平台',
+        description: '基于容器技术的云原生应用开发和部署平台',
+        image: '/static/products/cloud-native.jpg',
+        categoryId: 3,
+        categoryName: '云服务',
+        status: 'recommended',
+        features: ['容器化部署', '自动伸缩', '微服务架构'],
+        specs: {
+          '容器技术': 'Docker + Kubernetes',
+          '支持语言': 'Java, Python, Node.js',
+          '部署方式': '公有云/私有云/混合云',
+          'SLA': '99.95%'
+        }
+      },
+      {
+        id: 4,
+        name: '企业数字化转型咨询',
+        description: '为企业提供全方位的数字化转型策略规划和实施指导',
+        image: '/static/products/consulting.jpg',
+        categoryId: 4,
+        categoryName: '咨询服务',
+        status: 'recommended',
+        features: ['战略规划', '技术选型', '实施指导'],
+        specs: {
+          '服务周期': '3-12个月',
+          '交付成果': '转型方案+实施计划',
+          '后续支持': '12个月',
+          '成功率': '>95%'
+        }
+      },
+      {
+        id: 5,
+        name: '智能传感器',
+        description: '高精度多参数传感器，适用于环境监测和工业控制',
+        image: '/static/products/sensor.jpg',
+        categoryId: 1,
+        categoryName: '智能硬件',
+        price: 599,
+        status: 'hot',
+        features: ['高精度测量', '无线传输', '低功耗设计'],
+        specs: {
+          '测量精度': '±0.1%',
+          '通信方式': 'LoRa/NB-IoT',
+          '电池寿命': '5年',
+          '防护等级': 'IP67'
+        }
+      },
+      {
+        id: 6,
+        name: '安全运营中心',
+        description: '7×24小时安全监控和威胁检测平台，保障企业网络安全',
+        image: '/static/products/security.jpg',
+        categoryId: 2,
+        categoryName: '软件解决方案',
+        status: 'new',
+        features: ['威胁检测', '安全分析', '应急响应'],
+        specs: {
+          '监控能力': '10Gbps',
+          '检测准确率': '>99%',
+          '响应时间': '<1分钟',
+          '支持协议': '100+'
+        }
+      }
+    ] as Product[],
+
+    filteredProducts: [] as Product[]
+  },
+
+  onLoad() {
+    wx.setNavigationBarTitle({
+      title: '最新产品'
+    })
+    this.filterProducts({ target: { dataset: { category: 0 } } } as any)
+  },
+
+  filterProducts(event: any) {
+    const categoryId = event.target.dataset.category
+    this.setData({
+      currentCategory: categoryId,
+      filteredProducts: categoryId === 0 
+        ? this.data.products 
+        : this.data.products.filter(product => product.categoryId === categoryId)
+    })
+  },
+
+  viewProduct(event: any) {
+    const productId = event.target.dataset.id
+    wx.navigateTo({
+      url: `/pages/product-detail?id=${productId}`
+    })
+  },
+
+  contactUs() {
+    wx.navigateTo({
+      url: '/pages/contact'
+    })
+  }
+})
+</script>
+
+<style lang="stylus">
+.products-page
+  background-color #f5f5f5
+  min-height 100vh
+
+.header-section
+  background linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  padding 60rpx 30rpx 40rpx
+  color white
+  text-align center
+
+.page-title
+  font-size 48rpx
+  font-weight bold
+  margin-bottom 16rpx
+  display block
+
+.page-subtitle
+  font-size 28rpx
+  opacity 0.9
+  display block
+
+.filter-section
+  background white
+  padding 20rpx 0
+  box-shadow 0 2rpx 10rpx rgba(0, 0, 0, 0.05)
+
+.filter-scroll
+  width 100%
+
+.filter-list
+  display flex
+  gap 20rpx
+  padding 0 30rpx
+  white-space nowrap
+
+.filter-item
+  padding 16rpx 32rpx
+  background #f8f9fa
+  border-radius 24rpx
+  font-size 26rpx
+  color #666
+  transition all 0.3s ease
+
+.filter-item.active
+  background #007aff
+  color white
+
+.products-section
+  padding 30rpx
+
+.products-grid
+  display flex
+  flex-direction column
+  gap 30rpx
+
+.product-card
+  background white
+  border-radius 16rpx
+  overflow hidden
+  box-shadow 0 4rpx 20rpx rgba(0, 0, 0, 0.06)
+  transition transform 0.3s ease
+
+.product-card:active
+  transform scale(0.98)
+
+.product-image
+  width 100%
+  height 300rpx
+  object-fit cover
+
+.product-info
+  padding 30rpx
+
+.product-name
+  font-size 32rpx
+  font-weight bold
+  color #333
+  margin-bottom 12rpx
+  display block
+
+.product-category
+  font-size 24rpx
+  color #007aff
+  margin-bottom 16rpx
+  display block
+
+.product-description
+  font-size 26rpx
+  color #666
+  line-height 1.6
+  margin-bottom 20rpx
+  display block
+
+.product-footer
+  display flex
+  justify-content space-between
+  align-items center
+
+.product-price
+  font-size 32rpx
+  font-weight bold
+  color #ff4757
+
+.product-status
+  padding 8rpx 16rpx
+  border-radius 12rpx
+  font-size 22rpx
+  font-weight bold
+
+.status-new
+  background rgba(52, 168, 83, 0.1)
+  color #34a853
+
+.status-hot
+  background rgba(255, 71, 87, 0.1)
+  color #ff4757
+
+.empty-state
+  display flex
+  flex-direction column
+  align-items center
+  padding 80rpx 30rpx
+  background white
+  border-radius 16rpx
+
+.empty-icon
+  width 120rpx
+  height 120rpx
+  margin-bottom 30rpx
+  opacity 0.3
+
+.empty-text
+  font-size 28rpx
+  color #999
+
+.cta-section
+  margin 40rpx 30rpx 30rpx
+  padding 50rpx 40rpx
+  background linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  border-radius 20rpx
+  text-align center
+  color white
+
+.cta-title
+  font-size 36rpx
+  font-weight bold
+  margin-bottom 16rpx
+  display block
+
+.cta-subtitle
+  font-size 26rpx
+  opacity 0.9
+  margin-bottom 40rpx
+  display block
+  line-height 1.5
+
+.cta-button
+  background rgba(255, 255, 255, 0.2)
+  color white
+  border none
+  padding 24rpx 60rpx
+  border-radius 50rpx
+  font-size 30rpx
+  font-weight bold
+  backdrop-filter blur(10rpx)
+
+.cta-button::after
+  border none
+</style>
+
+<script type="application/json">
+{
+  "navigationBarTitleText": "最新产品"
+}
+</script>

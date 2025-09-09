@@ -1,0 +1,759 @@
+<template>
+  <view class="careers-page">
+    <view class="hero-section">
+      <view class="hero-content">
+        <text class="hero-title">加入我们</text>
+        <text class="hero-subtitle">与优秀的人一起，做有意义的事</text>
+        <text class="hero-description">
+          我们正在寻找有才华、有激情的伙伴加入我们的团队。
+          在这里，你将获得成长的机会，参与创新的项目，与行业精英共同打造未来。
+        </text>
+      </view>
+      <image class="hero-image" src="/static/images/careers-hero.jpg" mode="aspectFill" />
+    </view>
+
+    <view class="why-join-section">
+      <text class="section-title">为什么选择我们？</text>
+      <view class="benefits-grid">
+        <view wx:for="{{benefits}}" wx:key="id" class="benefit-item">
+          <image class="benefit-icon" src="{{item.icon}}" />
+          <text class="benefit-title">{{item.title}}</text>
+          <text class="benefit-description">{{item.description}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="filter-section">
+      <text class="filter-title">职位筛选</text>
+      <view class="filter-options">
+        <view class="filter-row">
+          <text class="filter-label">部门：</text>
+          <scroll-view class="filter-scroll" scroll-x>
+            <view class="filter-tags">
+              <view 
+                wx:for="{{departments}}" 
+                wx:key="id"
+                class="filter-tag {{selectedDepartment === item.id ? 'active' : ''}}"
+                bindtap="filterByDepartment"
+                data-id="{{item.id}}"
+              >
+                {{item.name}}
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="filter-row">
+          <text class="filter-label">地点：</text>
+          <scroll-view class="filter-scroll" scroll-x>
+            <view class="filter-tags">
+              <view 
+                wx:for="{{locations}}" 
+                wx:key="id"
+                class="filter-tag {{selectedLocation === item.id ? 'active' : ''}}"
+                bindtap="filterByLocation"
+                data-id="{{item.id}}"
+              >
+                {{item.name}}
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+
+    <view class="jobs-section">
+      <text class="section-title">热招职位 ({{filteredJobs.length}})</text>
+      <view wx:if="{{filteredJobs.length > 0}}" class="jobs-list">
+        <view 
+          wx:for="{{filteredJobs}}" 
+          wx:key="id"
+          class="job-card"
+          bindtap="viewJob"
+          data-id="{{item.id}}"
+        >
+          <view class="job-header">
+            <text class="job-title">{{item.title}}</text>
+            <text class="job-salary" wx:if="{{item.salary}}">{{item.salary}}</text>
+          </view>
+          <view class="job-meta">
+            <text class="job-department">{{item.departmentName}}</text>
+            <text class="job-location">{{item.locationName}}</text>
+            <text class="job-type">{{item.type}}</text>
+          </view>
+          <text class="job-description">{{item.description}}</text>
+          <view class="job-requirements">
+            <text class="requirements-title">职位要求：</text>
+            <text class="requirements-text">{{item.requirements[0]}}{{item.requirements.length > 1 ? '等' : ''}}</text>
+          </view>
+          <view class="job-footer">
+            <text class="job-posted">发布于 {{item.postedDate}}</text>
+            <view class="job-tags">
+              <text 
+                wx:for="{{item.tags}}" 
+                wx:key="*this"
+                wx:for-item="tag"
+                class="job-tag"
+              >
+                {{tag}}
+              </text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:else class="empty-jobs">
+        <image class="empty-icon" src="/static/icons/empty-jobs.png" />
+        <text class="empty-text">暂无符合条件的职位</text>
+        <text class="empty-hint">请尝试调整筛选条件或稍后再试</text>
+      </view>
+    </view>
+
+    <view class="contact-hr-section">
+      <text class="section-title">联系HR</text>
+      <view class="contact-card">
+        <image class="hr-avatar" src="/static/avatars/hr.jpg" />
+        <view class="hr-info">
+          <text class="hr-name">李小姐 - 人事经理</text>
+          <text class="hr-description">如有任何职业发展相关问题，欢迎随时联系</text>
+          <view class="contact-methods">
+            <button class="contact-btn phone-btn" bindtap="callHR">
+              <image class="btn-icon" src="/static/icons/phone.png" />
+              <text>电话咨询</text>
+            </button>
+            <button class="contact-btn email-btn" bindtap="emailHR">
+              <image class="btn-icon" src="/static/icons/email.png" />
+              <text>邮件联系</text>
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script lang="ts">
+import { createPage } from '@mpxjs/core'
+
+interface Benefit {
+  id: number
+  title: string
+  description: string
+  icon: string
+}
+
+interface Department {
+  id: number
+  name: string
+}
+
+interface Location {
+  id: number
+  name: string
+}
+
+interface Job {
+  id: number
+  title: string
+  description: string
+  departmentId: number
+  departmentName: string
+  locationId: number
+  locationName: string
+  type: string
+  salary?: string
+  requirements: string[]
+  responsibilities: string[]
+  postedDate: string
+  tags: string[]
+}
+
+createPage({
+  data: {
+    selectedDepartment: 0,
+    selectedLocation: 0,
+
+    benefits: [
+      {
+        id: 1,
+        title: '有竞争力的薪酬',
+        description: '行业领先的薪资水平，年度调薪机制',
+        icon: '/static/icons/salary.png'
+      },
+      {
+        id: 2,
+        title: '弹性工作制',
+        description: '灵活的工作时间，支持远程办公',
+        icon: '/static/icons/flexible.png'
+      },
+      {
+        id: 3,
+        title: '学习成长',
+        description: '完善的培训体系，技能提升支持',
+        icon: '/static/icons/growth.png'
+      },
+      {
+        id: 4,
+        title: '团队氛围',
+        description: '开放包容的企业文化，团建活动丰富',
+        icon: '/static/icons/team.png'
+      },
+      {
+        id: 5,
+        title: '五险一金',
+        description: '完整的社会保险，住房公积金',
+        icon: '/static/icons/insurance.png'
+      },
+      {
+        id: 6,
+        title: '健康福利',
+        description: '年度体检，健身房，员工食堂',
+        icon: '/static/icons/health.png'
+      }
+    ] as Benefit[],
+
+    departments: [
+      { id: 0, name: '全部' },
+      { id: 1, name: '技术部' },
+      { id: 2, name: '产品部' },
+      { id: 3, name: '市场部' },
+      { id: 4, name: '销售部' },
+      { id: 5, name: '运营部' }
+    ] as Department[],
+
+    locations: [
+      { id: 0, name: '全部' },
+      { id: 1, name: '北京' },
+      { id: 2, name: '上海' },
+      { id: 3, name: '深圳' },
+      { id: 4, name: '杭州' },
+      { id: 5, name: '远程' }
+    ] as Location[],
+
+    jobs: [
+      {
+        id: 1,
+        title: '高级前端工程师',
+        description: '负责公司核心产品的前端开发，与产品、设计团队紧密合作，打造优秀的用户体验',
+        departmentId: 1,
+        departmentName: '技术部',
+        locationId: 1,
+        locationName: '北京',
+        type: '全职',
+        salary: '20K-35K',
+        requirements: [
+          '3年以上前端开发经验',
+          '精通Vue.js/React等主流框架',
+          '熟悉TypeScript、ES6+',
+          '有移动端开发经验优先'
+        ],
+        responsibilities: [
+          '负责前端架构设计和核心功能开发',
+          '优化页面性能，提升用户体验',
+          '参与技术方案评审和代码review'
+        ],
+        postedDate: '2024-01-10',
+        tags: ['Vue.js', 'TypeScript', '移动端']
+      },
+      {
+        id: 2,
+        title: '产品经理',
+        description: '负责产品规划和需求分析，协调各部门资源，推动产品从概念到上线的全流程管理',
+        departmentId: 2,
+        departmentName: '产品部',
+        locationId: 2,
+        locationName: '上海',
+        type: '全职',
+        salary: '25K-40K',
+        requirements: [
+          '3年以上产品管理经验',
+          '有B端或SaaS产品经验',
+          '优秀的沟通和协调能力',
+          '熟练使用Axure、Figma等工具'
+        ],
+        responsibilities: [
+          '制定产品策略和发展规划',
+          '收集和分析用户需求',
+          '协调开发、测试、运营等各个环节'
+        ],
+        postedDate: '2024-01-08',
+        tags: ['B端产品', 'SaaS', '产品规划']
+      },
+      {
+        id: 3,
+        title: 'Java后端工程师',
+        description: '参与服务端核心系统的设计和开发，负责高并发、高可用的分布式系统架构',
+        departmentId: 1,
+        departmentName: '技术部',
+        locationId: 3,
+        locationName: '深圳',
+        type: '全职',
+        salary: '18K-30K',
+        requirements: [
+          '3年以上Java开发经验',
+          '熟悉Spring Boot、MyBatis等框架',
+          '有分布式系统开发经验',
+          '了解Redis、MySQL、MQ等中间件'
+        ],
+        responsibilities: [
+          '参与系统架构设计和技术选型',
+          '开发和维护核心业务模块',
+          '性能调优和系统监控'
+        ],
+        postedDate: '2024-01-05',
+        tags: ['Java', 'Spring Boot', '分布式']
+      },
+      {
+        id: 4,
+        title: '市场推广专员',
+        description: '制定和执行市场推广策略，负责品牌宣传和活动策划，提升公司知名度和影响力',
+        departmentId: 3,
+        departmentName: '市场部',
+        locationId: 1,
+        locationName: '北京',
+        type: '全职',
+        salary: '12K-20K',
+        requirements: [
+          '2年以上市场营销经验',
+          '熟悉数字营销渠道和工具',
+          '有活动策划和执行经验',
+          '优秀的文案撰写能力'
+        ],
+        responsibilities: [
+          '制定市场推广计划和策略',
+          '策划和执行线上线下营销活动',
+          '监控推广效果并优化策略'
+        ],
+        postedDate: '2024-01-03',
+        tags: ['数字营销', '活动策划', '文案']
+      },
+      {
+        id: 5,
+        title: 'UI/UX设计师',
+        description: '负责产品界面设计和用户体验优化，与产品经理和开发团队合作，打造优秀的产品体验',
+        departmentId: 2,
+        departmentName: '产品部',
+        locationId: 5,
+        locationName: '远程',
+        type: '全职',
+        salary: '15K-25K',
+        requirements: [
+          '3年以上UI/UX设计经验',
+          '精通Figma、Sketch等设计工具',
+          '有完整的产品设计项目经验',
+          '良好的审美和创新能力'
+        ],
+        responsibilities: [
+          '负责产品界面和交互设计',
+          '制定设计规范和组件库',
+          '用户研究和体验优化'
+        ],
+        postedDate: '2023-12-28',
+        tags: ['UI设计', 'UX设计', '远程工作']
+      },
+      {
+        id: 6,
+        title: '销售经理',
+        description: '负责客户开发和维护，完成销售目标，建立长期的客户合作关系',
+        departmentId: 4,
+        departmentName: '销售部',
+        locationId: 4,
+        locationName: '杭州',
+        type: '全职',
+        salary: '15K-30K + 提成',
+        requirements: [
+          '3年以上B2B销售经验',
+          '有企业级软件销售经验优先',
+          '优秀的沟通和谈判技巧',
+          '强烈的业绩导向和目标意识'
+        ],
+        responsibilities: [
+          '开发新客户，维护老客户关系',
+          '制定销售策略和计划',
+          '完成销售目标和收入指标'
+        ],
+        postedDate: '2023-12-25',
+        tags: ['B2B销售', '企业软件', '客户开发']
+      }
+    ] as Job[],
+
+    filteredJobs: [] as Job[]
+  },
+
+  onLoad() {
+    wx.setNavigationBarTitle({
+      title: '岗位招聘'
+    })
+    this.filterJobs()
+  },
+
+  filterByDepartment(event: any) {
+    const departmentId = event.target.dataset.id
+    this.setData({
+      selectedDepartment: departmentId
+    })
+    this.filterJobs()
+  },
+
+  filterByLocation(event: any) {
+    const locationId = event.target.dataset.id
+    this.setData({
+      selectedLocation: locationId
+    })
+    this.filterJobs()
+  },
+
+  filterJobs() {
+    let filtered = this.data.jobs
+
+    if (this.data.selectedDepartment !== 0) {
+      filtered = filtered.filter(job => job.departmentId === this.data.selectedDepartment)
+    }
+
+    if (this.data.selectedLocation !== 0) {
+      filtered = filtered.filter(job => job.locationId === this.data.selectedLocation)
+    }
+
+    this.setData({
+      filteredJobs: filtered
+    })
+  },
+
+  viewJob(event: any) {
+    const jobId = event.target.dataset.id
+    wx.navigateTo({
+      url: `/pages/job-detail?id=${jobId}`
+    })
+  },
+
+  callHR() {
+    wx.makePhoneCall({
+      phoneNumber: '400-1234-5678'
+    })
+  },
+
+  emailHR() {
+    wx.setClipboardData({
+      data: 'hr@honwell.com',
+      success: () => {
+        wx.showToast({
+          title: '邮箱地址已复制',
+          icon: 'success'
+        })
+      }
+    })
+  }
+})
+</script>
+
+<style lang="stylus">
+.careers-page
+  background-color #f5f5f5
+  min-height 100vh
+
+.hero-section
+  position relative
+  height 500rpx
+  background linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+  color white
+  display flex
+  align-items center
+
+.hero-content
+  flex 1
+  padding 40rpx
+  z-index 2
+
+.hero-title
+  font-size 48rpx
+  font-weight bold
+  margin-bottom 16rpx
+  display block
+
+.hero-subtitle
+  font-size 32rpx
+  margin-bottom 24rpx
+  display block
+  opacity 0.9
+
+.hero-description
+  font-size 26rpx
+  line-height 1.6
+  opacity 0.8
+  display block
+
+.hero-image
+  position absolute
+  right 0
+  top 0
+  width 300rpx
+  height 100%
+  object-fit cover
+  opacity 0.3
+
+.why-join-section
+  padding 50rpx 30rpx
+  background white
+
+.section-title
+  font-size 36rpx
+  font-weight bold
+  color #333
+  margin-bottom 40rpx
+  display block
+
+.benefits-grid
+  display flex
+  flex-wrap wrap
+  gap 20rpx
+
+.benefit-item
+  flex 0 0 calc(50% - 10rpx)
+  display flex
+  flex-direction column
+  align-items center
+  padding 30rpx 20rpx
+  background #f8f9fa
+  border-radius 16rpx
+
+.benefit-icon
+  width 60rpx
+  height 60rpx
+  margin-bottom 20rpx
+
+.benefit-title
+  font-size 28rpx
+  font-weight bold
+  color #333
+  margin-bottom 12rpx
+
+.benefit-description
+  font-size 24rpx
+  color #666
+  text-align center
+  line-height 1.4
+
+.filter-section
+  padding 30rpx
+  background white
+  border-top 1px solid #eee
+
+.filter-title
+  font-size 32rpx
+  font-weight bold
+  color #333
+  margin-bottom 30rpx
+  display block
+
+.filter-row
+  display flex
+  align-items center
+  margin-bottom 20rpx
+
+.filter-label
+  font-size 28rpx
+  color #666
+  min-width 80rpx
+
+.filter-scroll
+  flex 1
+
+.filter-tags
+  display flex
+  gap 20rpx
+  white-space nowrap
+
+.filter-tag
+  padding 12rpx 24rpx
+  background #f0f0f0
+  color #666
+  border-radius 20rpx
+  font-size 26rpx
+  transition all 0.3s ease
+
+.filter-tag.active
+  background #007aff
+  color white
+
+.jobs-section
+  padding 30rpx
+
+.jobs-list
+  display flex
+  flex-direction column
+  gap 20rpx
+
+.job-card
+  background white
+  border-radius 16rpx
+  padding 30rpx
+  box-shadow 0 4rpx 20rpx rgba(0, 0, 0, 0.06)
+  transition transform 0.3s ease
+
+.job-card:active
+  transform scale(0.98)
+
+.job-header
+  display flex
+  justify-content space-between
+  align-items flex-start
+  margin-bottom 16rpx
+
+.job-title
+  font-size 32rpx
+  font-weight bold
+  color #333
+  flex 1
+
+.job-salary
+  font-size 28rpx
+  color #ff4757
+  font-weight bold
+
+.job-meta
+  display flex
+  gap 20rpx
+  margin-bottom 20rpx
+
+.job-department, .job-location, .job-type
+  font-size 24rpx
+  color #666
+  padding 6rpx 12rpx
+  background rgba(0, 122, 255, 0.1)
+  border-radius 8rpx
+
+.job-description
+  font-size 26rpx
+  color #666
+  line-height 1.5
+  margin-bottom 20rpx
+  display block
+
+.job-requirements
+  margin-bottom 20rpx
+
+.requirements-title
+  font-size 26rpx
+  color #333
+  font-weight bold
+  display block
+  margin-bottom 8rpx
+
+.requirements-text
+  font-size 24rpx
+  color #666
+  display block
+
+.job-footer
+  display flex
+  justify-content space-between
+  align-items center
+
+.job-posted
+  font-size 22rpx
+  color #999
+
+.job-tags
+  display flex
+  gap 8rpx
+
+.job-tag
+  font-size 20rpx
+  color #007aff
+  background rgba(0, 122, 255, 0.1)
+  padding 4rpx 8rpx
+  border-radius 4rpx
+
+.empty-jobs
+  display flex
+  flex-direction column
+  align-items center
+  padding 80rpx 30rpx
+  background white
+  border-radius 16rpx
+
+.empty-icon
+  width 120rpx
+  height 120rpx
+  margin-bottom 30rpx
+  opacity 0.3
+
+.empty-text
+  font-size 28rpx
+  color #999
+  margin-bottom 12rpx
+
+.empty-hint
+  font-size 24rpx
+  color #ccc
+
+.contact-hr-section
+  padding 50rpx 30rpx 30rpx
+  background white
+  margin-top 30rpx
+
+.contact-card
+  display flex
+  gap 30rpx
+  padding 30rpx
+  background #f8f9fa
+  border-radius 16rpx
+
+.hr-avatar
+  width 120rpx
+  height 120rpx
+  border-radius 50%
+
+.hr-info
+  flex 1
+
+.hr-name
+  font-size 30rpx
+  font-weight bold
+  color #333
+  margin-bottom 12rpx
+  display block
+
+.hr-description
+  font-size 26rpx
+  color #666
+  margin-bottom 30rpx
+  display block
+  line-height 1.5
+
+.contact-methods
+  display flex
+  gap 20rpx
+
+.contact-btn
+  flex 1
+  display flex
+  align-items center
+  justify-content center
+  gap 12rpx
+  padding 20rpx
+  border-radius 12rpx
+  font-size 26rpx
+
+.phone-btn
+  background #007aff
+  color white
+  border none
+
+.email-btn
+  background transparent
+  color #007aff
+  border 1px solid #007aff
+
+.contact-btn::after
+  border none
+
+.btn-icon
+  width 32rpx
+  height 32rpx
+</style>
+
+<script type="application/json">
+{
+  "navigationBarTitleText": "岗位招聘"
+}
+</script>

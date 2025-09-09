@@ -1,0 +1,476 @@
+<template>
+  <view class="news-page">
+    <view class="header-section">
+      <text class="page-title">企业资讯</text>
+      <text class="page-subtitle">了解最新动态和行业趋势</text>
+    </view>
+
+    <view class="category-tabs">
+      <view 
+        wx:for="{{categories}}" 
+        wx:key="id"
+        class="tab-item {{currentCategory === item.id ? 'active' : ''}}"
+        bindtap="switchCategory"
+        data-category="{{item.id}}"
+      >
+        {{item.name}}
+      </view>
+    </view>
+
+    <view class="news-content">
+      <view wx:if="{{filteredNews.length > 0}}" class="news-list">
+        <view 
+          wx:for="{{filteredNews}}" 
+          wx:key="id"
+          class="news-item"
+          bindtap="viewNews"
+          data-id="{{item.id}}"
+        >
+          <image class="news-image" src="{{item.image}}" mode="aspectFill" />
+          <view class="news-info">
+            <text class="news-title">{{item.title}}</text>
+            <text class="news-summary">{{item.summary}}</text>
+            <view class="news-meta">
+              <text class="news-category">{{item.categoryName}}</text>
+              <text class="news-date">{{item.publishDate}}</text>
+            </view>
+            <view class="news-stats">
+              <view class="stat-item">
+                <image class="stat-icon" src="/static/icons/view.png" />
+                <text class="stat-text">{{item.views}}</text>
+              </view>
+              <view class="stat-item">
+                <image class="stat-icon" src="/static/icons/like.png" />
+                <text class="stat-text">{{item.likes}}</text>
+              </view>
+            </view>
+          </view>
+          <view wx:if="{{item.isTop}}" class="top-badge">置顶</view>
+        </view>
+      </view>
+
+      <view wx:else class="empty-state">
+        <image class="empty-icon" src="/static/icons/empty-news.png" />
+        <text class="empty-text">暂无相关资讯</text>
+      </view>
+    </view>
+
+    <view class="load-more" wx:if="{{hasMore && filteredNews.length > 0}}">
+      <button class="load-more-btn" bindtap="loadMore">
+        {{loading ? '加载中...' : '加载更多'}}
+      </button>
+    </view>
+  </view>
+</template>
+
+<script lang="ts">
+import { createPage } from '@mpxjs/core'
+
+interface Category {
+  id: number
+  name: string
+}
+
+interface NewsItem {
+  id: number
+  title: string
+  summary: string
+  content: string
+  image: string
+  categoryId: number
+  categoryName: string
+  publishDate: string
+  views: number
+  likes: number
+  isTop: boolean
+  tags: string[]
+}
+
+createPage({
+  data: {
+    currentCategory: 0,
+    loading: false,
+    hasMore: true,
+    page: 1,
+    
+    categories: [
+      { id: 0, name: '全部' },
+      { id: 1, name: '公司新闻' },
+      { id: 2, name: '行业动态' },
+      { id: 3, name: '产品更新' },
+      { id: 4, name: '技术分享' }
+    ] as Category[],
+
+    newsList: [
+      {
+        id: 1,
+        title: '公司成功获得ISO 9001质量管理体系认证',
+        summary: '经过严格的审核流程，我们正式获得ISO 9001:2015质量管理体系认证，标志着公司在质量管理方面达到国际标准。',
+        content: '',
+        image: '/static/news/iso-certification.jpg',
+        categoryId: 1,
+        categoryName: '公司新闻',
+        publishDate: '2024-01-15',
+        views: 1203,
+        likes: 45,
+        isTop: true,
+        tags: ['认证', '质量管理', 'ISO']
+      },
+      {
+        id: 2,
+        title: '智能制造行业迎来新的发展机遇',
+        summary: '随着数字化转型的深入推进，智能制造行业正迎来前所未有的发展机遇，预计未来三年市场规模将翻倍增长。',
+        content: '',
+        image: '/static/news/smart-manufacturing.jpg',
+        categoryId: 2,
+        categoryName: '行业动态',
+        publishDate: '2024-01-12',
+        views: 892,
+        likes: 32,
+        isTop: false,
+        tags: ['智能制造', '数字化', '市场趋势']
+      },
+      {
+        id: 3,
+        title: '产品管理平台 v3.0 重大更新发布',
+        summary: '全新的产品管理平台带来了更强大的功能和更优秀的用户体验，包括AI智能分析、实时协作等核心特性。',
+        content: '',
+        image: '/static/news/platform-update.jpg',
+        categoryId: 3,
+        categoryName: '产品更新',
+        publishDate: '2024-01-10',
+        views: 756,
+        likes: 28,
+        isTop: false,
+        tags: ['产品更新', 'v3.0', 'AI', '协作']
+      },
+      {
+        id: 4,
+        title: '如何在微服务架构中实现高可用性',
+        summary: '分享在微服务架构设计中实现高可用性的最佳实践，包括服务发现、负载均衡、熔断器等关键技术。',
+        content: '',
+        image: '/static/news/microservices.jpg',
+        categoryId: 4,
+        categoryName: '技术分享',
+        publishDate: '2024-01-08',
+        views: 654,
+        likes: 41,
+        isTop: false,
+        tags: ['微服务', '高可用', '架构设计']
+      },
+      {
+        id: 5,
+        title: '公司参加2024年科技创新展览会获得好评',
+        summary: '在今年的科技创新展览会上，我们展示的最新技术解决方案获得了参观者和专家的一致好评。',
+        content: '',
+        image: '/static/news/tech-exhibition.jpg',
+        categoryId: 1,
+        categoryName: '公司新闻',
+        publishDate: '2024-01-05',
+        views: 523,
+        likes: 19,
+        isTop: false,
+        tags: ['展览会', '创新', '技术展示']
+      },
+      {
+        id: 6,
+        title: 'AI技术在工业物联网中的应用前景',
+        summary: '探讨人工智能技术在工业物联网领域的应用现状和未来发展趋势，以及对传统制造业的变革意义。',
+        content: '',
+        image: '/static/news/ai-iot.jpg',
+        categoryId: 2,
+        categoryName: '行业动态',
+        publishDate: '2024-01-03',
+        views: 445,
+        likes: 23,
+        isTop: false,
+        tags: ['AI', '物联网', '工业4.0']
+      },
+      {
+        id: 7,
+        title: '云安全服务新功能上线公告',
+        summary: '我们的云安全服务新增了威胁情报分析和自动化响应功能，为用户提供更全面的安全防护。',
+        content: '',
+        image: '/static/news/cloud-security.jpg',
+        categoryId: 3,
+        categoryName: '产品更新',
+        publishDate: '2024-01-01',
+        views: 378,
+        likes: 15,
+        isTop: false,
+        tags: ['云安全', '威胁情报', '自动化']
+      },
+      {
+        id: 8,
+        title: '容器化部署的性能优化实践',
+        summary: '分享我们在容器化部署过程中的性能优化经验，包括资源配置、网络优化、存储优化等方面。',
+        content: '',
+        image: '/static/news/container-optimization.jpg',
+        categoryId: 4,
+        categoryName: '技术分享',
+        publishDate: '2023-12-28',
+        views: 612,
+        likes: 37,
+        isTop: false,
+        tags: ['容器化', '性能优化', 'Docker']
+      }
+    ] as NewsItem[],
+
+    filteredNews: [] as NewsItem[]
+  },
+
+  onLoad() {
+    wx.setNavigationBarTitle({
+      title: '企业资讯'
+    })
+    this.filterNews(0)
+  },
+
+  onPullDownRefresh() {
+    this.setData({
+      page: 1,
+      hasMore: true
+    })
+    this.filterNews(this.data.currentCategory)
+    wx.stopPullDownRefresh()
+  },
+
+  switchCategory(event: any) {
+    const categoryId = event.target.dataset.category
+    this.setData({
+      currentCategory: categoryId,
+      page: 1,
+      hasMore: true
+    })
+    this.filterNews(categoryId)
+  },
+
+  filterNews(categoryId: number) {
+    let filtered = categoryId === 0 
+      ? this.data.newsList 
+      : this.data.newsList.filter(news => news.categoryId === categoryId)
+    
+    // 置顶文章排序
+    filtered.sort((a, b) => {
+      if (a.isTop && !b.isTop) return -1
+      if (!a.isTop && b.isTop) return 1
+      return new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
+    })
+
+    this.setData({
+      filteredNews: filtered
+    })
+  },
+
+  viewNews(event: any) {
+    const newsId = event.target.dataset.id
+    wx.navigateTo({
+      url: `/pages/news-detail?id=${newsId}`
+    })
+  },
+
+  loadMore() {
+    if (this.data.loading || !this.data.hasMore) return
+    
+    this.setData({ loading: true })
+    
+    // 模拟加载更多数据
+    setTimeout(() => {
+      this.setData({
+        loading: false,
+        hasMore: false // 演示用，实际应根据数据判断
+      })
+    }, 1000)
+  }
+})
+</script>
+
+<style lang="stylus">
+.news-page
+  background-color #f5f5f5
+  min-height 100vh
+
+.header-section
+  background linear-gradient(135deg, #f093fb 0%, #f5576c 100%)
+  padding 60rpx 30rpx 40rpx
+  color white
+  text-align center
+
+.page-title
+  font-size 48rpx
+  font-weight bold
+  margin-bottom 16rpx
+  display block
+
+.page-subtitle
+  font-size 28rpx
+  opacity 0.9
+  display block
+
+.category-tabs
+  background white
+  padding 0 30rpx
+  display flex
+  border-bottom 1px solid #eee
+
+.tab-item
+  flex 1
+  text-align center
+  padding 30rpx 0
+  font-size 28rpx
+  color #666
+  position relative
+
+.tab-item.active
+  color #007aff
+  font-weight bold
+
+.tab-item.active::after
+  content ''
+  position absolute
+  bottom 0
+  left 50%
+  transform translateX(-50%)
+  width 60rpx
+  height 4rpx
+  background #007aff
+  border-radius 2rpx
+
+.news-content
+  padding 30rpx
+
+.news-list
+  display flex
+  flex-direction column
+  gap 30rpx
+
+.news-item
+  background white
+  border-radius 16rpx
+  overflow hidden
+  box-shadow 0 4rpx 20rpx rgba(0, 0, 0, 0.06)
+  position relative
+  transition transform 0.3s ease
+
+.news-item:active
+  transform scale(0.98)
+
+.news-image
+  width 100%
+  height 300rpx
+  object-fit cover
+
+.news-info
+  padding 30rpx
+
+.news-title
+  font-size 32rpx
+  font-weight bold
+  color #333
+  margin-bottom 16rpx
+  display block
+  line-height 1.4
+
+.news-summary
+  font-size 26rpx
+  color #666
+  line-height 1.6
+  margin-bottom 20rpx
+  display block
+  -webkit-line-clamp 2
+  -webkit-box-orient vertical
+  overflow hidden
+  text-overflow ellipsis
+  display -webkit-box
+
+.news-meta
+  display flex
+  justify-content space-between
+  align-items center
+  margin-bottom 20rpx
+
+.news-category
+  background rgba(0, 122, 255, 0.1)
+  color #007aff
+  padding 8rpx 16rpx
+  border-radius 12rpx
+  font-size 22rpx
+
+.news-date
+  font-size 24rpx
+  color #999
+
+.news-stats
+  display flex
+  gap 30rpx
+
+.stat-item
+  display flex
+  align-items center
+  gap 8rpx
+
+.stat-icon
+  width 28rpx
+  height 28rpx
+  opacity 0.6
+
+.stat-text
+  font-size 24rpx
+  color #999
+
+.top-badge
+  position absolute
+  top 20rpx
+  right 20rpx
+  background linear-gradient(45deg, #ff6b6b, #ee5a24)
+  color white
+  padding 8rpx 16rpx
+  border-radius 0 16rpx 0 16rpx
+  font-size 20rpx
+  font-weight bold
+
+.empty-state
+  display flex
+  flex-direction column
+  align-items center
+  padding 80rpx 30rpx
+  background white
+  border-radius 16rpx
+
+.empty-icon
+  width 120rpx
+  height 120rpx
+  margin-bottom 30rpx
+  opacity 0.3
+
+.empty-text
+  font-size 28rpx
+  color #999
+
+.load-more
+  padding 30rpx
+
+.load-more-btn
+  width 100%
+  background white
+  color #007aff
+  border 1px solid #007aff
+  border-radius 50rpx
+  padding 24rpx
+  font-size 28rpx
+
+.load-more-btn::after
+  border none
+
+.load-more-btn[disabled]
+  background #f5f5f5
+  color #999
+  border-color #e5e5e5
+</style>
+
+<script type="application/json">
+{
+  "navigationBarTitleText": "企业资讯",
+  "enablePullDownRefresh": true
+}
+</script>
