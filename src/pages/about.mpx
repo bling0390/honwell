@@ -119,25 +119,25 @@ createPage({
       {
         id: 1,
         title: '创新',
-        description: '持续创新，追求卓越',
+        description: '持续创新 追求卓越',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🚀'
       },
       {
         id: 2,
         title: '诚信',
-        description: '诚实守信，言行一致',
+        description: '诚实守信 言行一致',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🤝'
       },
       {
         id: 3,
         title: '专业',
-        description: '专业技能，精益求精',
+        description: '专业技能 精益求精',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=💼'
       },
       {
         id: 4,
         title: '协作',
-        description: '团队协作，共同成长',
+        description: '团队协作 共同成长',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=👥'
       }
     ] as ValueItem[],
@@ -301,6 +301,8 @@ createPage({
   padding 30rpx 20rpx
   background #f8f9fa
   border-radius 12rpx
+  min-height 180rpx
+  box-sizing border-box
 
 .value-icon
   width 60rpx
@@ -312,11 +314,22 @@ createPage({
   font-weight bold
   color #333
   margin-bottom 12rpx
+  display block
+  text-align center
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
+  width 100%
 
 .value-desc
   font-size 24rpx
   color #666
   text-align center
+  display block
+  line-height 1.4
+  word-wrap break-word
+  word-break break-all
+  width 100%
 
 .team-section
   background white
