@@ -418,10 +418,10 @@ createPage({
     })
   },
 
-  viewJob(event: any) {
-    const jobId = event.target.dataset.id
-    wx.navigateTo({
-      url: `/pages/job-detail?id=${jobId}`
+  viewJob() {
+    wx.showToast({
+      title: '职位详情开发中',
+      icon: 'none'
     })
   },
 

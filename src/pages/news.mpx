@@ -262,10 +262,10 @@ createPage({
     })
   },
 
-  viewNews(event: any) {
-    const newsId = event.target.dataset.id
-    wx.navigateTo({
-      url: `/pages/news-detail?id=${newsId}`
+  viewNews() {
+    wx.showToast({
+      title: '文章详情开发中',
+      icon: 'none'
     })
   },
 

@@ -18,7 +18,40 @@ createApp({})
       "./pages/products",
       "./pages/news",
       "./pages/careers"
-    ]
+    ],
+    "tabBar": {
+      "color": "#666666",
+      "selectedColor": "#007aff",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "position": "bottom",
+      "list": [
+        {
+          "pagePath": "pages/about",
+          "text": "关于我们",
+          "iconPath": "https://via.placeholder.com/48x48/666666/666666?text=ℹ",
+          "selectedIconPath": "https://via.placeholder.com/48x48/007aff/007aff?text=ℹ"
+        },
+        {
+          "pagePath": "pages/products", 
+          "text": "产品",
+          "iconPath": "https://via.placeholder.com/48x48/666666/666666?text=📦",
+          "selectedIconPath": "https://via.placeholder.com/48x48/007aff/007aff?text=📦"
+        },
+        {
+          "pagePath": "pages/news",
+          "text": "资讯", 
+          "iconPath": "https://via.placeholder.com/48x48/666666/666666?text=📰",
+          "selectedIconPath": "https://via.placeholder.com/48x48/007aff/007aff?text=📰"
+        },
+        {
+          "pagePath": "pages/careers",
+          "text": "招聘",
+          "iconPath": "https://via.placeholder.com/48x48/666666/666666?text=👥", 
+          "selectedIconPath": "https://via.placeholder.com/48x48/007aff/007aff?text=👥"
+        }
+      ]
+    }
   }
 </script>
 

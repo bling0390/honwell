@@ -1,6 +1,5 @@
 <template>
   <view class="index-page">
-    <navigation></navigation>
     <view class="main-content">
       <view class="hero-section">
         <view class="hero-content">
@@ -140,7 +139,7 @@ createPage({
 
   navigateToPage(event: any) {
     const path = event.target.dataset.path
-    wx.navigateTo({
+    wx.switchTab({
       url: path
     })
   }
@@ -296,8 +295,7 @@ createPage({
 <script type="application/json">
   {
     "usingComponents": {
-      "list": "../components/list",
-      "navigation": "../components/navigation"
+      "list": "../components/list"
     }
   }
 </script>

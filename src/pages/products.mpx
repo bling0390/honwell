@@ -212,16 +212,17 @@ createPage({
     })
   },
 
-  viewProduct(event: any) {
-    const productId = event.target.dataset.id
-    wx.navigateTo({
-      url: `/pages/product-detail?id=${productId}`
+  viewProduct() {
+    wx.showToast({
+      title: '产品详情开发中',
+      icon: 'none'
     })
   },
 
   contactUs() {
-    wx.navigateTo({
-      url: '/pages/contact'
+    wx.showToast({
+      title: '功能开发中',
+      icon: 'none'
     })
   }
 })
