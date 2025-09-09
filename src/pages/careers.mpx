@@ -176,37 +176,37 @@ createPage({
       {
         id: 1,
         title: '有竞争力的薪酬',
-        description: '行业领先的薪资水平，年度调薪机制',
+        description: '行业领先的薪资水平 年度调薪机制',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=💰'
       },
       {
         id: 2,
         title: '弹性工作制',
-        description: '灵活的工作时间，支持远程办公',
+        description: '灵活的工作时间 支持远程办公',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=⏰'
       },
       {
         id: 3,
         title: '学习成长',
-        description: '完善的培训体系，技能提升支持',
+        description: '完善的培训体系 技能提升支持',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=📚'
       },
       {
         id: 4,
         title: '团队氛围',
-        description: '开放包容的企业文化，团建活动丰富',
+        description: '开放包容的企业文化 团建活动丰富',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=👥'
       },
       {
         id: 5,
         title: '五险一金',
-        description: '完整的社会保险，住房公积金',
+        description: '完整的社会保险 住房公积金',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=🛡'
       },
       {
         id: 6,
         title: '健康福利',
-        description: '年度体检，健身房，员工食堂',
+        description: '年度体检 健身房 员工食堂',
         icon: 'https://via.placeholder.com/64x64/667eea/ffffff?text=💊'
       }
     ] as Benefit[],
@@ -522,6 +522,8 @@ createPage({
   padding 30rpx 20rpx
   background #f8f9fa
   border-radius 16rpx
+  min-height 180rpx
+  box-sizing border-box
 
 .benefit-icon
   width 60rpx
@@ -533,12 +535,23 @@ createPage({
   font-weight bold
   color #333
   margin-bottom 12rpx
+  display block
+  text-align center
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
+  width 100%
 
 .benefit-description
   font-size 24rpx
   color #666
   text-align center
   line-height 1.4
+  display block
+  word-wrap break-word
+  word-break break-all
+  width 100%
+  flex 1
 
 .filter-section
   padding 30rpx
