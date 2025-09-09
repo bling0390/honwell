@@ -147,28 +147,28 @@ createPage({
         id: 1,
         name: '张伟',
         position: '创始人 & CEO',
-        bio: '拥有15年行业经验，致力于推动公司战略发展',
+        bio: '拥有15年行业经验 致力于推动公司战略发展',
         avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CEO'
       },
       {
         id: 2,
         name: '李明',
         position: '技术总监',
-        bio: '资深技术专家，专注于技术架构和团队建设',
+        bio: '资深技术专家 专注于技术架构和团队建设',
         avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CTO'
       },
       {
         id: 3,
         name: '王芳',
         position: '市场总监',
-        bio: '市场营销专家，负责品牌推广和市场拓展',
+        bio: '市场营销专家 负责品牌推广和市场拓展',
         avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CMO'
       },
       {
         id: 4,
         name: '刘强',
         position: '产品总监',
-        bio: '产品设计专家，专注于用户体验和产品创新',
+        bio: '产品设计专家 专注于用户体验和产品创新',
         avatar: 'https://via.placeholder.com/200x200/007aff/ffffff?text=CPO'
       }
     ] as TeamMember[],
@@ -351,6 +351,8 @@ createPage({
   padding 30rpx 20rpx
   background #f8f9fa
   border-radius 12rpx
+  min-height 220rpx
+  box-sizing border-box
 
 .member-avatar
   width 100rpx
@@ -363,17 +365,34 @@ createPage({
   font-weight bold
   color #333
   margin-bottom 8rpx
+  display block
+  text-align center
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
+  width 100%
 
 .member-position
   font-size 24rpx
   color #007aff
   margin-bottom 12rpx
+  display block
+  text-align center
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
+  width 100%
 
 .member-bio
   font-size 22rpx
   color #666
   text-align center
   line-height 1.4
+  display block
+  word-wrap break-word
+  word-break break-all
+  width 100%
+  flex 1
 
 .contact-section
   background white
