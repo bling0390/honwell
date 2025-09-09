@@ -240,6 +240,7 @@ createPage({
 .products-page
   background-color #f5f5f5
   min-height 100vh
+  padding-bottom calc(100rpx + env(safe-area-inset-bottom) + 20rpx)
 
 .header-section
   background linear-gradient(135deg, #667eea 0%, #764ba2 100%)
@@ -373,7 +374,7 @@ createPage({
   color #999
 
 .cta-section
-  margin 40rpx 30rpx 30rpx
+  margin 40rpx 30rpx 20rpx
   padding 50rpx 40rpx
   background linear-gradient(135deg, #667eea 0%, #764ba2 100%)
   border-radius 20rpx
